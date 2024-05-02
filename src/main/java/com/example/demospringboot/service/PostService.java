@@ -5,6 +5,7 @@ import com.example.demospringboot.entity.Post;
 import com.example.demospringboot.entity.User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,9 +36,31 @@ public class PostService {
             "02-Jan-19",
             user2,
             "We all need someone");
-    private List<Post> posts = Arrays.asList(post1, post2);
+    private List<Post> posts = new ArrayList<>(Arrays.asList(post1, post2));
 
     public List<Post> getAllPosts() {
         return posts;
+    }
+
+    public Post getPost(String id) {
+        Post post = posts.stream().filter(t -> id.equals(t.getId())).findFirst().orElse(null);
+        return post;
+    }
+
+    public void addPost(Post post) {
+        posts.add(post);
+    }
+
+    public void deletePost(String id) {
+        posts.removeIf(t -> id.equals(t.getId()));
+    }
+
+    public void updatePost(String id, Post post) {
+        for (int i = 0; i < posts.size(); i++) {
+            Post p = posts.get(i);
+            if (p.getId().equals(id)) {
+                posts.set(i, post);
+            }
+        }
     }
 }
