@@ -17,9 +17,9 @@ public class PostController {
         return postService.getAllPosts();
     }
 
-    @GetMapping(value = "/posts/{id}")
+    @RequestMapping(method = RequestMethod.POST, value = "/posts/{id}")
     public Post getPostById(@PathVariable String id) {
-        return postService.getPost(id);
+        return postService.getPostById(id);
     }
 
     @PostMapping(value = "/posts")
@@ -27,7 +27,7 @@ public class PostController {
         postService.addPost(post);
     }
 
-    @DeleteMapping(value = "/post/{id}")
+    @DeleteMapping(value = "/posts/{id}")
     public void deletePostById(@PathVariable String id) {
         postService.deletePost(id);
     }
