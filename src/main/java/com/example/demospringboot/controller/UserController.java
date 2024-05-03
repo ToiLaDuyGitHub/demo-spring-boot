@@ -5,6 +5,7 @@ import com.example.demospringboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,7 +19,7 @@ public class UserController {
 
     @RequestMapping(value = "/users/{id}")
     public User getUserById(@PathVariable String id) {
-        return userService.getUser(id);
+        return userService.getUserById(id);
     }
 
     @PostMapping(value = "/users")
@@ -26,7 +27,7 @@ public class UserController {
         userService.addUser(user);
     }
 
-    @DeleteMapping(value = "/user/{id}")
+    @DeleteMapping(value = "/users/{id}")
     public void deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
     }

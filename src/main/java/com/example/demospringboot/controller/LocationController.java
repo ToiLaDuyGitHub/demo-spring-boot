@@ -22,12 +22,12 @@ public class LocationController {
         return locationService.getLocationById(id);
     }
 
-    @PostMapping(value = "/locations")
+    @RequestMapping(method = RequestMethod.POST, value = "/locations")
     public void addLocation(@RequestBody Location location) {
         locationService.addLocation(location);
     }
 
-    @DeleteMapping(value = "/location/{id}")
+    @DeleteMapping(value = "/locations/{id}")
     public void deleteLocation(@PathVariable String id) {
         locationService.deleteLocation(id);
     }

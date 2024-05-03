@@ -2,6 +2,8 @@ package com.example.demospringboot.service;
 
 import com.example.demospringboot.entity.Location;
 import com.example.demospringboot.entity.User;
+import com.example.demospringboot.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,44 +12,35 @@ import java.util.List;
 
 @Service
 public class UserService {
-    User user1 = new User(
-            "u1",
-            "Jany",
-            "Lawrence",
-            new Location("l1", "Lagos"),
-            "Jany@gmail.com");
-
-    User user2 = new User(
-            "u2",
-            "Jadon",
-            "Mills",
-            new Location("l2", "Asaba"),
-            "Jadon@gmail.com");
-    private List<User> users = new ArrayList<>(Arrays.asList(user1, user2));
+    @Autowired
+    private UserRepository userRepository;
 
     public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        userRepository.findAll().forEach(users::add);
         return users;
     }
 
-    public User getUser(String id) {
-        User user = users.stream().filter(t -> id.equals(t.getId())).findFirst().get();
-        return user;
+    public User getUserById(String id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     public void addUser(User user) {
-        users.add(user);
-    }
-
-    public void deleteUser(String id) {
-        users.removeIf(t -> id.equals(t.getId()));
+        userRepository.save(user);
     }
 
     public void updateUser(String id, User user) {
-        for (int i = 0; i < users.size(); i++) {
-            User u = users.get(i);
-            if (id.equals(u.getId())) {
-                users.set(i, user);
-            }
-        }
+        userRepository.save(user);
     }
+
+    public void deleteUser(String id) {
+        userRepository.deleteById(id);
+    }
+
+    public List<User> getUsersByLocation(String locationId) {
+        List<User> users = new ArrayList<>();
+        userRepository.findAllByLocation(locationId).forEach(users::add);
+        return users;
+    }
+
 }
