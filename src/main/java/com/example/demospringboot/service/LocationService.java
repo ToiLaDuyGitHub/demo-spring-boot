@@ -35,4 +35,14 @@ public class LocationService {
     public void deleteLocation(String id) {
         locationRepository.deleteById(id);
     }
+
+    //returns list of locations base on a given name
+    public List<Location> getLocationsByName(String name) {
+        List<Location> locations  = new ArrayList<>();
+
+        locationRepository.findByName(name)
+                .forEach(locations::add);
+
+        return locations;
+    }
 }

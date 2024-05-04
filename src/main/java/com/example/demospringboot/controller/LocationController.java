@@ -36,4 +36,9 @@ public class LocationController {
     public void updateLocation(@PathVariable String id, @RequestBody Location location) {
         locationService.updateLocation(id, location);
     }
+
+    @RequestMapping(value = "/locations/name/{name}")
+    public List<Location> getLocationByName(@PathVariable String name) {
+        return locationService.getLocationsByName(name);
+    }
 }
