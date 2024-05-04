@@ -3,18 +3,22 @@ package com.example.demospringboot.controller;
 import com.example.demospringboot.entity.Post;
 import com.example.demospringboot.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class PostController {
     @Autowired
     private PostService postService;
 
     @RequestMapping(value = "/posts")
-    public List<Post> getAllPosts() {
-        return postService.getAllPosts();
+    public String getAllPosts(Model model)
+    {
+        model.addAttribute("posts", postService.getAllPosts());
+        return "posts";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/posts/{id}")
