@@ -3,18 +3,22 @@ package com.example.demospringboot.controller;
 import com.example.demospringboot.entity.Student;
 import com.example.demospringboot.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class StudentController {
     @Autowired
     private StudentService studentService;
 
     @GetMapping(value = "/students")
-    public List<Student> getStudents() {
-        return studentService.getAllStudents();
+    public String getAllStudents(Model model)
+    {
+        model.addAttribute("students", studentService.getAllStudents());
+        return "students";
     }
 
     @GetMapping(value = "/students/{id}")
