@@ -1,13 +1,11 @@
 package com.example.demospringboot.service;
 
-import com.example.demospringboot.entity.Location;
 import com.example.demospringboot.entity.User;
 import com.example.demospringboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -39,7 +37,7 @@ public class UserService {
 
     public List<User> getUsersByLocation(String locationId) {
         List<User> users = new ArrayList<>();
-        userRepository.findAllByLocation(locationId).forEach(users::add);
+        userRepository.findByLocationId(locationId).forEach(users::add);
         return users;
     }
 

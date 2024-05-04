@@ -40,7 +40,7 @@ public class PostService {
 
     public List<Post> getPostsByUser(String userId) {
         List<Post> posts = new ArrayList<>();
-        postRepository.findAll().forEach(posts::add);
+        postRepository.findByUserId(userId).forEach(posts::add);
         return posts;
     }
 }
